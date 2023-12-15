@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
 
 const pages = ['Hire', 'About', 'Search'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Account', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
