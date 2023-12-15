@@ -1,12 +1,12 @@
 import "./input.css";
 import { React, useState,useEffect } from "react";
 import Employee from "./components/Employee";
+import NavBar from "./components/NavBar";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { faker } from '@faker-js/faker';
-
 
 
 function App() {
@@ -37,6 +37,7 @@ function App() {
   return (
     <div className="App">
       <div className="flex flex-wrap justify-center">
+      <NavBar/>
         {employees.map((employee) => (
           <Employee
             name={employee.firstName}
