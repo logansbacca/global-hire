@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const pages = ['Hire', 'About', 'Search'];
 const settings = ['Account', 'Logout'];
@@ -19,6 +20,7 @@ const settings = ['Account', 'Logout'];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -33,6 +35,17 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  // Function to handle logout
+  const handleLogout = (setting) => {
+    if (setting === "Logout"){
+      localStorage.removeItem('token');
+      navigate('/login'); 
+    }else {
+      navigate('/account')
+    }
+   
   };
 
   return (
@@ -55,7 +68,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-        ReactiveGlobalHire
+            ReactiveGlobalHire
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -150,7 +163,7 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={() => handleLogout(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

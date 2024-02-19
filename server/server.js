@@ -9,9 +9,9 @@ const cors = require('cors');
 
 
 server.use(cors({
-    origin: 'http://localhost:5173', // Allow requests from your frontend
-    methods: 'GET,POST,PUT,DELETE', // Allow the HTTP methods your frontend needs
-    credentials: true, // Allow credentials (e.g., cookies, authorization headers)
+    origin: 'http://localhost:5173', 
+    methods: 'GET,POST,PUT,DELETE', 
+    credentials: true, 
   }));
 
 // ??

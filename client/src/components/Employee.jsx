@@ -22,6 +22,7 @@ export default function Employee(props) {
       </p>
       
       <EditEmployee name={props.name} email={props.email} id= {props.id} position={props.profession} icon= {props.icon}/>
+      
     </div>
       </div>
      
