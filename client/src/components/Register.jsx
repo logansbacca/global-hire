@@ -1,43 +1,45 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = (props) => {
+const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const onButtonClick = async () => {
-   
+
     try {
-      const response = await fetch("http://localhost:3333/api/user/login", {
+      const response = await fetch("http://localhost:3333/api/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: email,
+          userName:username,
           password: password,
         }),
       });
       const data = await response.json();
       if (response.ok) {
+        alert("ok");
         localStorage.setItem("token", data.token);
         navigate("/");
       } else {
         alert(data.message);
       }
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error("Error registering user:", error);
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="flex flex-col items-center">
-        <div className="text-4xl font-bold">Login</div>
+        <div className="text-4xl font-bold">Register</div>
       </div>
-      <br />
+      <br/>
       <div className="flex flex-col items-center">
         <input
           value={email}
@@ -49,11 +51,20 @@ const Login = (props) => {
       <br />
       <div className="flex flex-col items-center">
         <input
+          value={username}
+          placeholder="Enter your username here"
+          onChange={(ev) => setUsername(ev.target.value)}
+          style={styles.input}
+        />
+      </div>
+      <br />
+      <div className="flex flex-col items-center">
+        <input
           value={password}
+          type="password"
           placeholder="Enter your password here"
           onChange={(ev) => setPassword(ev.target.value)}
           style={styles.input}
-          type="password"
         />
       </div>
       <br />
@@ -67,7 +78,10 @@ const Login = (props) => {
         />
         <br></br>
         <p>
-          Don't have an Account? <a className="text-cyan-600" href="/register">Register</a>
+          Already have an Account?{" "}
+          <a className="text-cyan-600" href="/login">
+            Login
+          </a>
         </p>
       </div>
     </div>
@@ -92,4 +106,4 @@ const styles = {
   },
 };
 
-export default Login;
+export default Register;
