@@ -25,6 +25,7 @@ const Login = (props) => {
       if (response.ok) {
         localStorage.setItem("admin", data.data.admin);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("id", data.data._id);
         navigate("/");
       } else {
         alert(data.message);

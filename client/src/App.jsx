@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Employee from "./components/Employee";
 import NavBar from "./components/NavBar";
 import Login from "./components/Login";
-import Profile from "./components/Profile"
+import Profile from "./components/Profile";
+import Account from "./components/Account"
 import Register from "./components/Register";
 import PrivateRoutes from "./components/PrivateRoute";
 import About from "./components/About";
@@ -61,12 +62,13 @@ function App() {
                   </>
                 }
               />
-            <Route path="/" element={ <><NavBar/><Home/></>} />
             <Route path="/about" element={ <><NavBar/><About/></>} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/account" element={<Account />} />
             </Route>
+            <Route path="/" element={ <><NavBar/><Home/></>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </div>

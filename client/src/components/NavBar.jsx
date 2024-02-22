@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 const pages = ["Hire", "About"];
 const settings = ["Account", "Logout"];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate(); 
