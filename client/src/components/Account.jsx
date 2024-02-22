@@ -9,7 +9,7 @@ export default function Account() {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const onLoad = async () => {
+    const fetchData = async () => {
       try {
         const response = await fetch(`http://localhost:3333/api/user/${id}`, {
           method: "GET",
@@ -27,8 +27,8 @@ export default function Account() {
         console.error("Error fetching information", error);
       }
     };
-    onLoad();
-  }, [id]);
+    fetchData(); // Call the fetchData function
+  }, [id]); // Add id as a dependency
 
   const editValues = async () => {
     try {
@@ -44,14 +44,12 @@ export default function Account() {
         }),
       });
       if (response.ok) {
-        // Refresh data after successful edit
-        onLoad();
+        fetchData();
       }
     } catch (error) {
-      console.error("Error fetching information", error);
+      console.error("Error editing information", error);
     }
   };
-
   return (
     <>
       <Navbar />

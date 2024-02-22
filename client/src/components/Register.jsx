@@ -23,11 +23,9 @@ const Register = (props) => {
       });
       const data = await response.json();
       if (response.ok) {
-        alert("ok");
         localStorage.setItem("admin", data.data.admin);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("id", data.data.id);
-        navigate("/");
+        localStorage.setItem("id", data.data._id);
+        navigate("/login");
       } else {
         alert(data.message);
       }
