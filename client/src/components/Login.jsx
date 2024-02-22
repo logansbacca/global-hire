@@ -21,7 +21,9 @@ const Login = (props) => {
         }),
       });
       const data = await response.json();
+      console.log(data)
       if (response.ok) {
+        localStorage.setItem("admin", data.data.admin);
         localStorage.setItem("token", data.token);
         navigate("/");
       } else {
