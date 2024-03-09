@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Employee from "./components/Employee";
 import NavBar from "./components/NavBar";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
-import Account from "./components/Account"
+import Account from "./components/Account";
 import Register from "./components/Register";
-import PrivateRoutes from "./components/PrivateRoute";
 import About from "./components/About";
-import Home from "./components/Home"
+import Home from "./components/Home";
+import { authContext } from "./context";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -17,6 +17,9 @@ import { faker } from "@faker-js/faker";
 
 function App() {
   const [employees, setEmployees] = useState([]);
+  const value = useContext(authContext);
+  const { isAuth } = value;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,13 +42,36 @@ function App() {
       <div className="flex flex-wrap justify-center">
         <BrowserRouter>
           <Routes>
-          <Route path="/login" element={<Login />} />
-            <Route element={<PrivateRoutes />}>
-              <Route
-                path="/hire"
-                element={
+            <Route
+              path="/login"
+              element={isAuth ? <Navigate to="/" /> : <Login />}
+            />
+            <Route
+              path="/register"
+              element={isAuth ? <Navigate to="/" /> : <Register />}
+            />
+
+            <Route
+              path="/"
+              element={
+                isAuth ? (
                   <>
-                    <NavBar className="w-full" />
+                    {" "}
+                    <NavBar /> <Home />
+                  </>
+                ) : (
+                  <>
+                    <Navigate to="/login" />
+                  </>
+                )
+              }
+            />
+            <Route
+              path="/hire"
+              element={
+                isAuth ? (
+                  <>
+                    <NavBar />
                     {employees.map((employee) => (
                       <Employee
                         name={employee.firstName}
@@ -60,15 +86,32 @@ function App() {
                       />
                     ))}
                   </>
-                }
-              />
-            <Route path="/about" element={ <><NavBar/><About/></>} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/account" element={<Account />} />
-            </Route>
-            <Route path="/" element={ <><NavBar/><Home/></>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                isAuth ? (
+                  <>
+                    {" "}
+                    <NavBar /> <About />
+                  </>
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/profile"
+              element={isAuth ? <Profile /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/account"
+              element={isAuth ? <Account /> : <Navigate to="/login" />}
+            />
           </Routes>
         </BrowserRouter>
       </div>

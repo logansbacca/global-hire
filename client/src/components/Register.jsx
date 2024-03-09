@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { authContext } from "../context";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const value = useContext(authContext)
   const navigate = useNavigate();
+
+  const {isAuth, setAuth, setUser, user} = value;
+ 
 
   const onButtonClick = async () => {
 
@@ -23,9 +28,10 @@ const Register = (props) => {
       });
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem("admin", data.data.admin);
-        localStorage.setItem("id", data.data._id);
-        navigate("/login");
+        setUser({"admin" : data.data.admin,
+        "token" :  data.token,
+        "id":  data.data._id
+      }),navigate("/login");
       } else {
         alert(data.message);
       }

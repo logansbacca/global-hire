@@ -27,8 +27,8 @@ export default function Account() {
         console.error("Error fetching information", error);
       }
     };
-    fetchData(); // Call the fetchData function
-  }, [id]); // Add id as a dependency
+    fetchData(); 
+  }, [id]); 
 
   const editValues = async () => {
     try {

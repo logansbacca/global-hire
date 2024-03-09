@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,14 +13,17 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ImportantDevicesIcon from "@mui/icons-material/ImportantDevices";
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import { authContext } from "../context";
 
-const pages = ["Hire", "About"];
+const pages = ["Home","Hire", "About",];
 const settings = ["Account", "Logout"];
 
 function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const navigate = useNavigate(); 
+  const value = useContext(authContext);
+  const { setAuth } = value;
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,7 +42,7 @@ function ResponsiveAppBar(props) {
 
   const handleLogout = (setting) => {
     if (setting === "Logout") {
-      localStorage.removeItem("token");
+      setAuth(false);
       navigate("/login");
     } else {
       navigate("/account");
@@ -47,9 +50,13 @@ function ResponsiveAppBar(props) {
   };
 
   const menuRedirect = (page) => {
-    navigate(`/${page}`)
-  }
-  
+    if (page === "Home"){
+      navigate(`/`);
+    }else {
+      navigate(`/${page}`);
+    }
+ 
+  };
 
   return (
     <AppBar position="static">
@@ -58,23 +65,23 @@ function ResponsiveAppBar(props) {
           <ImportantDevicesIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".1rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            ReactiveGlobalHire
-          </Typography>
+         
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".1rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              ReactiveGobalHire
+            </Typography>
+     
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -107,7 +114,7 @@ function ResponsiveAppBar(props) {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={() => menuRedirect(page)}>
-                  <Typography textAlign="center" >{page}</Typography>
+                  <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -116,7 +123,6 @@ function ResponsiveAppBar(props) {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -138,7 +144,7 @@ function ResponsiveAppBar(props) {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={() => menuRedirect(page)} 
+                onClick={() => menuRedirect(page)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
