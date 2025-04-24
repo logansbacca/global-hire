@@ -13,7 +13,7 @@ It serves as a global marketplace, simplifying the process of discovering and hi
 
 ### Frontend:
 - React
-- Redux 
+- Context 
 - React Router
 - Material-UI 
 
