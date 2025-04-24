@@ -13,14 +13,14 @@ It serves as a global marketplace, simplifying the process of discovering and hi
 
 ### Frontend:
 - React
-- Redux (optional)
+- Redux 
 - React Router
-- Material-UI (or any other UI library)
+- Material-UI 
 
 ### Backend:
 - Node.js
 - Express
-- MongoDB (or any other database)
+- MongoDB 
 
 ### Authentication:
 - JSON Web Tokens (JWT)
